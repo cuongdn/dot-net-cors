@@ -27,7 +27,8 @@ namespace WebApi
         {
 
             services.AddControllers();
-            services.AddCors();
+            services.AddCors(x =>
+                x.AddPolicy("AllowAll", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +42,7 @@ namespace WebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            app.UseCors("AllowAll");
 
             app.UseAuthorization();
 
